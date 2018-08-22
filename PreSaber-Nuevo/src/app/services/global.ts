@@ -14,6 +14,6 @@ export var GLOBAL = {
   //urlFiles: 'http://192.168.0.13/ltesoluciones/php-backend/App/public'
 
   //Local Desarrollo nelson
-  url: 'http://localhost/trasladoEstudiantes1/php-backend/index.php/',
-  urlFiles: 'http://localhost/trasladoEstudiantes1/php-backend/App/public'
+  url: 'http://localhost/joseluisestudiante/trunk/php-backend/index.php/',
+  urlFiles: 'http://localhost/joseluisestudiante/trunk/php-backend//App/public'
 };

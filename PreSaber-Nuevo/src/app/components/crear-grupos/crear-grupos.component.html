@@ -6,10 +6,10 @@
            #descripcionExamen="ngModel"
            [ngStyle]="{'border': objCurso.cursdescripv== '' ? 'red solid 1px' : '#577928 solid 1px'}"
            [(ngModel)]="objCurso.cursdescripv">
-    <button (click)="crearGrupo()" class="btn btn-success" style="width: 100%; margin-top: 10px"
+    <button (click)="crearGrupo()" class="btn btnPropio" style="width: 100%; margin-top: 10px"
             [disabled]="objCurso.cursdescripv == ''">Cargar <div *ngIf="objCurso.cursdescripv == ''">🔐</div>
     </button>
-    <button (click)="actualizarCurso()" class="btn btn-warning" style="width: 100%; margin-top: 10px"
+    <button (click)="actualizarCurso()" class="btn btnPropio" style="width: 100%; margin-top: 10px"
             >Actualizar
     </button>
   </div>
@@ -72,7 +72,7 @@
            #descripcionExamen="ngModel"
            [ngStyle]="{'border': objCursoHijos.cursdescripv== '' ? 'red solid 1px' : '#577928 solid 1px'}"
            [(ngModel)]="objCursoHijos.cursdescripv">
-    <button (click)="crearHijosGrupo()" class="btn btn-success" style="width: 100%; margin-top: 10px"
+    <button (click)="crearHijosGrupo()" class="btn btnPropio" style="width: 100%; margin-top: 10px"
             [disabled]="objCursoHijos.cursdescripv == ''">Cargar <div *ngIf="objCursoHijos.cursdescripv == ''">🔐</div>
     </button>
     <div class="dataTables_scrollBody"

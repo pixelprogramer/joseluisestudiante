@@ -28,4 +28,11 @@ export class AlmacenService{
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
     return this._Http.post(this.url + 'calificacion/almacen/actualizarCantidadAlmacen',parametros, {headers: headers});
   }
+  nuevaCantidadUsuario(token,objAlmacen,objStockUsuario): Observable<any>{
+    let objCompleto = Object.assign(objAlmacen,objStockUsuario);
+    let json = JSON.stringify(objCompleto);
+    let parametros = 'token='+token+'&json='+json;
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    return this._Http.post(this.url + 'calificacion/almacen/agregarStockUsuario',parametros, {headers: headers});
+  }
 }

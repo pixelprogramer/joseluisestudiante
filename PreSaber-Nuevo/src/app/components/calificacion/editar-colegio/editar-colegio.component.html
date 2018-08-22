@@ -28,13 +28,13 @@
     </div>
     <div class="col-md-12" style="margin-top: 10px;" >
       <div class="row" style="float: right; " id="botonesDatosBasicosCrearMenu">
-        <button style="padding: 5px; margin: 5px" class="btn btn-sm btn-outline-success " id="btnCrearColegio"
+        <button style="padding: 5px; margin: 5px" class="btn btn-sm btnPropio " id="btnCrearColegio"
                 (click)="crearColegio()"
                 [disabled]="objColegio.colecoddanen == '' || objColegio.coledescripv == '' ||  objLugar.lugacoddanen == '000'">
           Crear colegio
         </button>
 
-        <button style="padding: 5px; margin: 5px" class="btn btn-sm btn-outline-warning" id="btnActualizarColegio" (click)="actualizarColegio()"
+        <button style="padding: 5px; margin: 5px" class="btn btn-sm btnPropio" id="btnActualizarColegio" (click)="actualizarColegio()"
                 [disabled]="objColegio.colecoddanen == '' || objColegio.coledescripv == '' ||  objLugar.lugacoddanen == '000'"
         >Actualizar colegio
         </button>

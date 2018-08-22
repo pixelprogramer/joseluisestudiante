@@ -146,10 +146,10 @@
 
   <div class="row">
     <div class="col-md-12">
-      <button class="btn btn-warning" id="btnCrearPedido" (click)="subirListas()">Subir listas</button>
+      <button class="btn btnPropio" id="btnSubirListas" (click)="subirListas()">Subir listas</button>
     </div>
     <div class="col-md-12" style="margin-top: 10px">
-      <button class="btn btn-success" id="btnCrearPedido" (click)="crearPedido()">Crear pedido</button>
+      <button class="btn btnPropio" id="btnCrearPedido" (click)="crearPedido()">Crear pedido</button>
     </div>
   </div>
 </app-card>
@@ -480,17 +480,17 @@
     </div>
     <div class="row">
       <div class="col-sm-12 col-md-12">
-        <button class="btn btn-success" style="width: 100%" (click)="[agregarDetalle(),cantidadProducto.hide()]"
+        <button class="btn btnPropio" style="width: 100%" (click)="[agregarDetalle(),cantidadProducto.hide()]"
                 id="btnAgregarDetallePedido">Agregar detalle
         </button>
       </div>
       <div class="col-sm-12 col-md-12" style="margin-top: 10px">
-        <button class="btn btn-warning" style="width: 100%" (click)="[editarDetallePedido(),cantidadProducto.hide()]"
+        <button class="btn btnPropio" style="width: 100%" (click)="[editarDetallePedido(),cantidadProducto.hide()]"
                 id="btnEditarDetallePedido">Editar detalle
         </button>
       </div>
       <div class="col-sm-12 col-md-12" style="margin-top: 10px">
-        <button class="btn btn-danger" style="width: 100%" (click)="[eliminarDetallePedido(),cantidadProducto.hide()]"
+        <button class="btn btnPropio" style="width: 100%" (click)="[eliminarDetallePedido(),cantidadProducto.hide()]"
                 id="btnEliminarDetallePedido">Eliminar detalle
         </button>
       </div>

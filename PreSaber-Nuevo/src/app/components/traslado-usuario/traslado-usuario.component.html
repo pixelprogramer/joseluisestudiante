@@ -6,7 +6,7 @@
            #descripcionExamen="ngModel"
            [ngStyle]="{'border': objTraslado.caliidn== '' ? 'red solid 1px' : '#577928 solid 1px'}"
            [(ngModel)]="objTraslado.caliidn">
-    <button (click)="cargarEstudiantes()" class="btn btn-success" style="width: 100%; margin-top: 10px"
+    <button (click)="cargarEstudiantes()" class="btn btnPropio" style="width: 100%; margin-top: 10px"
             [disabled]="objTraslado.caliidn == ''">Cargar <div *ngIf="objTraslado.caliidn == ''">🔐</div>
     </button>
   </div>
@@ -15,7 +15,7 @@
     <div class="col-sm-6" >
       <h4 class="sub-title">Paquete nuevo</h4>
       <input class="form-control" placeholder="Nuevo paquete" #newcaliidn [(ngModel)]="objTraslado.caliidnnew" >
-      <button class="btn btn-danger " style="width: 100%; margin-top: 5px" [disabled]="objTraslado.caliidnnew == ''"
+      <button class="btn btnPropio " style="width: 100%; margin-top: 5px" [disabled]="objTraslado.caliidnnew == ''"
               (click)="cambiarUsuario()"  >Cambiar<div *ngIf="objTraslado.caliidnnew == ''">🔐</div>
       </button>
       <div class="input-group" style="padding-top: 10px">

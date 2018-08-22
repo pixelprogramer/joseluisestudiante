@@ -28,13 +28,13 @@
   </div>
   <div class="col-md-12" style="margin-top: 10px;">
     <div class="row" style="float: right; ">
-      <button style="padding: 5px; margin: 5px" class="btn btn-sm btn-outline-success " id="btnCrearAccion"
+      <button style="padding: 5px; margin: 5px" class="btn btn-sm btnPropio" id="btnCrearAccion"
               (click)="crearAccion()"
               [disabled]="objAcciones.estado_acciones_minutas== '000' || objAcciones.descripcion_acciones_minutas == ''">
         Crear accion
       </button>
 
-      <button style="padding: 5px; margin: 5px" class="btn btn-sm btn-outline-warning" id="btnActualizarAccion"
+      <button style="padding: 5px; margin: 5px" class="btn btn-sm btnPropio" id="btnActualizarAccion"
               (click)="actualizarAccion()"
       >Actualizar accion
       </button>
@@ -81,14 +81,14 @@
             <td>{{acciones.id_acciones_minutas}}</td>
             <td>{{acciones.descripcion_acciones_minutas}}</td>
             <td>
-              <div [ngStyle]="{'color':acciones.seleccion_pedido_accion == '1' || acciones.seleccion_pedido_accion == true ? 'green':'red'}"
-                   class="col-sm-12 col-md-6 col-lg-4 col-xl-3 outer-ellipsis" style="font-size: 27px"><i
+              <div  [ngStyle]="{'color':acciones.seleccion_pedido_accion == '1' || acciones.seleccion_pedido_accion == true ? 'green':'red'}"
+                   class="col-sm-12 col-md-6 col-lg-4 col-xl-3 outer-ellipsis" style="font-size: 17px"><i
                 [class]="acciones.seleccion_pedido_accion == '1' || acciones.seleccion_pedido_accion == true ? 'ti-check':'ti-close'"
               ></i>
               </div>
             </td>
-            <td style="text-align: center">
-              <button class="btn botones-tablas btn-warning btn-sm btn-outline-warning"
+            <td style="text-align: center; font-size: 11px">
+              <button class="btn botones-tablas btnPropio"
                       (click)="[seleccionarAccion(acciones)]"><i
                 class="icofont icofont-ui-edit"></i></button>
             </td>

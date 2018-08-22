@@ -6,10 +6,10 @@
            #descripcionExamen="ngModel"
            [ngStyle]="{'border': cadenaPaquetes== '' ? 'red solid 1px' : '#577928 solid 1px'}"
            [(ngModel)]="cadenaPaquetes">
-    <button (click)="listarEstudiantesPaquetes()" class="btn btn-success" style="width: 100%; margin-top: 10px"
+    <button (click)="listarEstudiantesPaquetes()" class="btn btnPropio" style="width: 100%; margin-top: 10px"
             [disabled]="cadenaPaquetes == ''">Cargar <div *ngIf="cadenaPaquetes == ''">🔐</div>
     </button>
-    <button (click)="unificarEstudiantes()" class="btn btn-warning" style="width: 100%; margin-top: 10px" [disabled]="cantidadSeleccionados == 0"
+    <button (click)="unificarEstudiantes()" class="btn btnPropio" style="width: 100%; margin-top: 10px" [disabled]="cantidadSeleccionados == 0"
     >UnificarEstudiantes <div *ngIf="cantidadSeleccionados == 0">🔐</div>
     </button>
   </div>

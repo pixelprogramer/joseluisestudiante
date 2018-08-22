@@ -234,7 +234,7 @@
     <h6>Categoria seleccionada: <strong style="color: limegreen">{{objCategoria.descripcion_categoria_minutas}}</strong>
     </h6>
     <h6>Accion seleccionada: <strong style="color: limegreen">{{objAcciones.descripcion_acciones_minutas}}</strong></h6>
-    <button style="width: 100%" class="btn btn-lg btn-success" (click)="[cargarDetalle(),modalDetallesPedido.hide()]"> Cargar detalles</button>
+    <button style="width: 100%" class="btn btn-lg btnPropio" (click)="[cargarDetalle(),modalDetallesPedido.hide()]"> Cargar detalles</button>
     <button type="button" class="close basic-close" (click)="modalDetallesPedido.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -303,7 +303,7 @@
     </div>
       <h4 style="margin-top: 10px" class="sub-title">Observacion</h4>
   <textarea class="form-control" #observacion [(ngModel)]="objRegistroMinutas.observacion_minuta" name="objservacion"></textarea>
-    <button (click)="[detenerMinuta(),modalObservacionMinutas.hide()]" style="width: 100%; margin-top: 5px" [disabled]="objNoConformes.id == '000' || objCategoriaNoConformes.id =='000'" class="btn btn-lg btn-warning">Detener tarea
+    <button (click)="[detenerMinuta(),modalObservacionMinutas.hide()]" style="width: 100%; margin-top: 5px" [disabled]="objNoConformes.id == '000' || objCategoriaNoConformes.id =='000'" class="btn btn-lg btnPropio">Detener tarea
       <div *ngIf="objNoConformes.id =='000' || objCategoriaNoConformes.id =='000'">🔐</div></button>
 
   </div>
