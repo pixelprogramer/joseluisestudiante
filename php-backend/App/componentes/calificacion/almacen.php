@@ -26,6 +26,36 @@ $app->post('/calificacion/almacen/listar',function ()use($app){
     }
     echo $helper->checkCode($data);
 });
+$app->post('/calificacion/almacen/listarStockUsuario',function ()use($app){
+    $helper = new helper();
+    $conexion = new conexPGSeguridad();
+    $token = $app->request()->post('token',null);
+    if ($token != null){
+        $validacionToken = $helper->authCheck($token);
+        if ($validacionToken == true){
+            $id_usuario = $app->request->post('id',null);
+            $sql = "select * from minutas.stock_usuario_almacen_calificacion suac 
+                    inner join minutas.almacen_calificacion ac on  suac.fk_id_almacen_calificacion=ac.id_almacen_calificacion 
+                    where suac.fk_stock_usuario_almacen_usuario_id= '$id_usuario'";
+            $r = $conexion->consultaComplejaAso($sql);
+            $data = [
+                'code'=>'LTE-001',
+                'data'=> $r
+            ];
+        }else
+        {
+            $data =[
+                'code'=>'LTE-013'
+            ];
+        }
+    }else
+    {
+        $data = [
+            'code'=>'LTE-013'
+        ];
+    }
+    echo $helper->checkCode($data);
+});
 $app->post('/calificacion/almacen/actualizarCantidadAlmacen',function ()use($app){
     $helper = new helper();
     $conexion = new conexPGSeguridad();
