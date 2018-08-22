@@ -74,6 +74,7 @@ export class RegistrarMinutaComponent implements OnInit {
     $("#loaderTablaAcciones").hide();
     $("#loaderTablaPedido").hide();
     $("#noPermitido").hide();
+    $("#noPermitidoInput").hide()
     $("#loaderTablaMinutas").hide();
     this.cantidadSeleccionados = 0;
     this.codigoFiltro = '';
@@ -103,8 +104,10 @@ export class RegistrarMinutaComponent implements OnInit {
       this.objAcciones.seleccion_pedido_accion = accion.seleccion_pedido_accion;
       if (this.objAcciones.seleccion_pedido_accion == '1' || this.objAcciones.seleccion_pedido_accion == true) {
         $("#noPermitido").hide();
+        $("#noPermitidoInput").hide();
       } else {
         $("#noPermitido").show();
+        $("#noPermitidoInput").show();
       }
     } else {
       this._ElementService.pi_poVentanaAlertaWarning('LTE-000', 'Lo sentimos, esta accion esta con un estado: INACTIVO');
@@ -303,7 +306,7 @@ export class RegistrarMinutaComponent implements OnInit {
           }).then((result) => {
             $("#loaderUsuario").show();
             if (result.value) {
-              this._RegistroMinutasService.crearRegistroMinutaSimple(this.token, this.objAcciones.id_acciones_minutas).subscribe(
+              this._RegistroMinutasService.crearRegistroMinutaSimple(this.token, this.objAcciones.id_acciones_minutas,this.objRegistroMinutas.descripcion_minuta).subscribe(
                 respuesta => {
                   this._ElementService.pi_poValidarCodigo(respuesta);
                   if (respuesta.status == 'success') {
@@ -338,9 +341,11 @@ export class RegistrarMinutaComponent implements OnInit {
           if (this.objRegistroMinutas.estado_minuta == 'DETENIDA') {
             // $("#btnIniciarMinuta").text('Continuar Tarea');
             $("#noPermitido").show();
+            $("#noPermitidoInput").show();
           } else {
             //$("#btnIniciarMinuta").val('Iniciar Tarea');
             $("#noPermitido").hide();
+            $("#noPermitidoInput").hide();
           }
         } else {
           this._ElementService.pi_poVentanaAlertaWarning('LTE-000', 'Lo sentimos, selecciones una accion para continua');
