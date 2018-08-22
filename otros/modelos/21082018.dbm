@@ -654,7 +654,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="stock_usuario_almacen_calificacion">
 	<schema name="minutas"/>
 	<role name="postgres"/>
-	<position x="615" y="1441"/>
+	<position x="635" y="1443"/>
 	<column name="id_stock_almacen_calificacion" not-null="true">
 		<type name="serial"/>
 	</column>
@@ -1076,7 +1076,11 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <relationship name="rel_stock_usuario_almacen_calificacion_almacen_calificacion" type="relfk"
 	 src-table="minutas.stock_usuario_almacen_calificacion"
 	 dst-table="minutas.almacen_calificacion"
-	 src-required="false" dst-required="false"/>
+	 src-required="false" dst-required="false">
+	<label ref-type="src-label">
+		<position x="0" y="0"/>
+	</label>
+</relationship>
 
 <relationship name="rel_registro_gasto_usuario_almacen_calificacion" type="relfk"
 	 src-table="minutas.registro_gasto_usuario"
