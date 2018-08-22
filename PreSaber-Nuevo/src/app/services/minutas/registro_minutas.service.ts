@@ -30,9 +30,9 @@ export class Registro_minutasService{
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
     return this._http.post(this.url + 'minutas/unix/crearRegistroMinutas',params, {headers: headers});
   }
-  crearRegistroMinutaSimple(token,id): Observable<any> {
+  crearRegistroMinutaSimple(token,id,descripcion): Observable<any> {
 
-    let params = 'token='+token+'&idAccion='+id;
+    let params = 'token='+token+'&idAccion='+id+'&descripcion='+descripcion;
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
     return this._http.post(this.url + 'minutas/unix/crearRegistroMinutasSimple',params, {headers: headers});
   }
