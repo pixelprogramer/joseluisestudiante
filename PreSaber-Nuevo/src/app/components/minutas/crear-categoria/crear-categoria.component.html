@@ -14,13 +14,13 @@
   </div>
   <div class="col-md-12" style="margin-top: 10px;">
     <div class="row" style="float: right; ">
-      <button style="padding: 5px; margin: 5px" class="btn btn-sm btn-outline-success " id="btnCrearMenu"
+      <button style="padding: 5px; margin: 5px" class="btn btn-sm btnPropio" id="btnCrearMenu"
               (click)="crearCategoria()"
               [disabled]="objCategoriaMinutas.id_tipo_pedido_minutas_fk == ''">
         Crear categoria
       </button>
 
-      <button style="padding: 5px; margin: 5px" class="btn btn-sm btn-outline-warning" id="btnActualizarMenu"
+      <button style="padding: 5px; margin: 5px" class="btn btn-sm btnPropio" id="btnActualizarMenu"
               (click)="actualizarMenu()"
       >Actualizar categoria
       </button>
@@ -65,7 +65,7 @@
             <td>{{tpl.id_categoria_minutas}}</td>
             <td>{{tpl.descripcion_categoria_minutas}}</td>
             <td style="text-align: center">
-              <button class="btn botones-tablas btn-warning btn-sm btn-outline-warning"
+              <button class="btn botones-tablas btnPropio" style="font-size: 10px"
                       (click)="[seleccionarCategoria(tpl)]"><i
                 class="icofont icofont-ui-edit"></i></button>
             </td>
@@ -121,7 +121,7 @@
               <td>{{tp.id}}</td>
               <td>{{tp.description}}</td>
               <td style="text-align: center">
-                <button class="btn botones-tablas btn-success btn-sm btn-outline-success"
+                <button class="btn botones-tablas btnPropio" style="font-size: 10px"
                         (click)="[seleccionarTipoPedido(tp),categorias.hide()]"><i
                   class="icofont icofont-ui-check"></i></button>
               </td>

@@ -19,7 +19,7 @@
               (click)="cambiarUsuario()"  >Cambiar<div *ngIf="objTraslado.caliidnnew == ''">🔐</div>
       </button>
       <div class="input-group" style="padding-top: 10px">
-        <input type="text" class="form-control" placeholder="Filtrar por grado"
+        <input type="text" class="form-control" placeholder="Filtrar por nombre de estudiante"
                [(ngModel)]="filtroEstudiante">
         <div class="input-group-append">
           <button class="btn btn-primary input-group-text" type="button"
@@ -61,7 +61,7 @@
           <tbody>
           <tr *ngFor="let estudiante of listEstudiantes" role="row"
               class="odd Tablas filaTabla">
-            <td><input type="checkbox" (click)="selectEstudiante(estudiante)"></td>
+            <td><input class="btn btnPropio" type="checkbox" (click)="selectEstudiante(estudiante)"></td>
             <td>{{estudiante.calixestuidn}}</td>
             <td>{{estudiante.estunombrev}}</td>
             <td>{{estudiante.caliidn}}</td>

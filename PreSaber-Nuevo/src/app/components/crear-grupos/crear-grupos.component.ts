@@ -116,24 +116,30 @@ export class CrearGruposComponent implements OnInit {
   }
 
   actualizarCurso() {
-    if (this.objCurso.cursdescripv != '') {
-      this._CursoService.actualizarCurso(this.objCurso, this.token).subscribe(
-        respuesta => {
-          this._ElementService.pi_poValidarCodigo(respuesta);
-          if (respuesta.status == 'success') {
-            this.objCurso.cursdescripv = '';
-            this.listarCursos();
-            this._ElementService.pi_poAlertaSuccess(respuesta.msg, respuesta.code);
-          } else {
+    if (this.objCurso.cur_cursidn != ''){
+      if (this.objCurso.cursdescripv != '') {
+        this._CursoService.actualizarCurso(this.objCurso, this.token).subscribe(
+          respuesta => {
+            this._ElementService.pi_poValidarCodigo(respuesta);
+            if (respuesta.status == 'success') {
+              this.objCurso.cursdescripv = '';
+              this.listarCursos();
+              this._ElementService.pi_poAlertaSuccess(respuesta.msg, respuesta.code);
+            } else {
+
+            }
+          }, error2 => {
 
           }
-        }, error2 => {
-
-        }
-      )
-    } else {
-      this._ElementService.pi_poAlertaError('El campo descripcion es requerido', 'LTE-000');
+        )
+      } else {
+        this._ElementService.pi_poAlertaError('El campo descripcion es requerido', 'LTE-000');
+      }
+    }else
+    {
+      this._ElementService.pi_poAlertaError('Por favor seleccione un grupo', 'LTE-000');
     }
+
   }
 
   filtrarGrupo() {

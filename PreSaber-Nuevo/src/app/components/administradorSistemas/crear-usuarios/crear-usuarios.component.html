@@ -61,7 +61,7 @@
     </div>
     <div class="col-md-12" style="margin-top: 10px;" >
       <div class="row" style="float: right; " id="botonesDatosBasicosCrearMenu">
-        <button style="padding: 5px; margin: 5px" class="btn btn-sm btn-outline-success " id="btnCrearMenu"
+        <button style="padding: 5px; margin: 5px" class="btn btn-sm btnPropio" id="btnCrearMenu"
                 (click)="crearUsuario()"
                 [disabled]="objUsuario.documento_usuario == '' || objUsuario.nombre_usuario == '' ||
                 objUsuario.apellido_usuario == '' || objUsuario.correo_usuario == '' ||
@@ -70,7 +70,7 @@
           Crear usuario
         </button>
 
-        <button style="padding: 5px; margin: 5px" class="btn btn-sm btn-outline-warning" id="btnActualizarMenu" (click)="actualizarUsuario()"
+        <button style="padding: 5px; margin: 5px" class="btn btn-sm btnPropio" id="btnActualizarMenu" (click)="actualizarUsuario()"
                 [disabled]="objUsuario.documento_usuario == '' || objUsuario.nombre_usuario == '' ||
                 objUsuario.apellido_usuario == '' || objUsuario.correo_usuario == '' ||
                 objUsuario.id_rol_fk_usuario == '000' || objUsuario.estado_usuario=='000'"
@@ -140,7 +140,7 @@
               <td>{{usuario.fecha_ultima_ingreso_usuario}}</td>
 
               <td style="text-align: center">
-                <button class="btn botones-tablas btn-warning btn-sm btn-outline-warning"
+                <button class="btn botones-tablas btnPropio" style="font-size: 10px"
                         (click)="seleccionarUsuario(usuario)"><i
                   class="icofont icofont-ui-edit"></i></button>
               </td>

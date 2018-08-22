@@ -21,12 +21,12 @@
   </div>
   <div class="col-md-12" style="margin-top: 10px;">
     <div class="row" style="float: right; ">
-      <button style="padding: 5px; margin: 5px" class="btn btn-sm btn-outline-success " (click)="crearRol()" id="btnCrearRol"
+      <button style="padding: 5px; margin: 5px" class="btn btn-sm btnPropio" (click)="crearRol()" id="btnCrearRol"
               [disabled]="objRol.descripcion_rol == '' || objRol.estado_rol == '000'">
         Crear contrato
       </button>
 
-      <button style="padding: 5px; margin: 5px" class="btn btn-sm btn-outline-warning" id="btnActualizarRol"
+      <button style="padding: 5px; margin: 5px" class="btn btn-sm btnPropio" id="btnActualizarRol"
               (click)="actualizarRol()">Actualizar registro
       </button>
     </div>
@@ -73,7 +73,7 @@
             <td>{{rol.descripcion_rol}}</td>
             <td><span [class]="rol.estado_rol == 'activo' || rol.estado_rol == 'ACTIVO' ? 'pcoded-badge label label-success':'pcoded-badge label label-danger'" >{{rol.estado_rol}}</span></td>
             <td style="text-align: center">
-              <button class="btn botones-tablas btn-warning btn-sm btn-outline-warning"
+              <button class="btn botones-tablas btnPropio" style="font-size: 10px"
                       (click)="seleccionarRol(rol)"><i
                 class="icofont icofont-ui-edit"></i></button>
             </td>
