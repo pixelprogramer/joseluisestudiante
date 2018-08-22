@@ -215,12 +215,16 @@ $app->post('/minutas/unix/crearRegistroMinutasSimple', function () use ($app) {
                 $estado_minuta = 'SINTERMINAR';
                 $id_usuario_minutas_fk = $usuarioToken->sub;
                 $id_acciones_minutas_fk = $app->request->post('idAccion', null);
+                $observacion = $app->request->post('descripcion',null);
+                if (trim($observacion) == ''){
+                    $observacion = '-';
+                }
                 $horas_totales = '0';
                 $sql = "INSERT INTO minutas.registro_minutas(
                              fecha_creacion_minuta, fecha_hora_inicio_minuta,  horas_totales, estado_minuta,
-                              id_usuario_minutas_fk, id_acciones_minutas_fk)
+                              id_usuario_minutas_fk, id_acciones_minutas_fk,descripcion_minuta)
                             VALUES ('$fecha_creacion_minuta', '$fecha_hora_inicio_minuta', '$horas_totales', '$estado_minuta', 
-                            '$id_usuario_minutas_fk', '$id_acciones_minutas_fk') returning id_registro_minutas;";
+                            '$id_usuario_minutas_fk', '$id_acciones_minutas_fk','$observacion') returning id_registro_minutas;";
                 $r = $conexion->consultaComplejaNorAso($sql);
                 metodoTiempoMuertoTemporal($usuarioToken->sub);
                 $descripcionActividad = 'Se creo una nueva minuta con codigo: ' . $r['id_registro_minutas'];
