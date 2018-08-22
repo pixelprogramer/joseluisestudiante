@@ -10,6 +10,7 @@ export class Registro_minutas {
               public id_acciones_minutas_fk: any,
               public id_pedido_minutas_fk: any,
               public id_registro_minutas_fk: any,
-              public id_inicial_registro_minutas: any) {
+              public id_inicial_registro_minutas: any,
+              public descripcion_minuta: any) {
   }
 }

@@ -18,6 +18,7 @@ export class StockUsuarioComponent implements OnInit {
   public objUsuario: Usuario;
   public listUsuario: Array<Usuario>;
   public listAlamacen: Array<Almacen_calificacion>;
+  public listStockUsuario = [];
   public objAlamacen: Almacen_calificacion;
   public nuevaCantidad: any;
   public stockUsuario: Stock_usuario_almacen_calificacion;
@@ -95,6 +96,7 @@ export class StockUsuarioComponent implements OnInit {
                 this._ElementService.pi_poValidarCodigo(respuesta);
                 if (respuesta.status == 'success'){
                   this.listarAlmacen(this.objUsuario);
+                  this.listarStockUsuario();
                 }else
                 {
                   this._ElementService.pi_poVentanaAlertaWarning(respuesta.code,respuesta.msg);
@@ -117,5 +119,29 @@ export class StockUsuarioComponent implements OnInit {
       this._ElementService.pi_poVentanaAlertaWarning('LTE-000', 'Lo sentimos, El valor de la nueva cantidad debe ser mayor a 0');
     }
 
+  }
+  cargarStockUsuario(usuario){
+    this.objUsuario= usuario;
+  this.listarStockUsuario()
+  }
+  listarStockUsuario(){
+    this._AlmacenService.listarStockUsuario(this.token,this.objUsuario.id_usuario).subscribe(
+      respuesta=>{
+        this._ElementService.pi_poValidarCodigo(respuesta);
+        if (respuesta.status == 'success'){
+          if (respuesta.data != 0){
+            this.listStockUsuario = respuesta.data;
+          }else
+          {
+            this.listStockUsuario = [];
+          }
+        }else
+        {
+          this._ElementService.pi_poVentanaAlertaWarning(respuesta.code,respuesta.msg);
+        }
+      },error2 => {
+
+      }
+    )
   }
 }

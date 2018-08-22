@@ -1,5 +1,6 @@
 <ng2-toasty [position]="position"></ng2-toasty>
-<app-card title="Almacen por usuario">
+
+<app-card title="Almacen por usuario" id="seccionUsuario">
 
   <div class="row">
     <div class="col-md-12">
@@ -40,12 +41,42 @@
             <td>{{usuario.documento_usuario}}</td>
             <td>{{usuario.nombre_usuario}}</td>
             <td>{{usuario.apellido_usuario}}</td>
-            <td><i (click)="[listarAlmacen(usuario),cargarCantidadUsuario.show()]" class="ti-plus btnTablas"></i><i
+            <td><i (click)="[listarAlmacen(usuario),cargarCantidadUsuario.show()]" class="ti-plus btnTablas">
+
+            </i><i (click)="cargarStockUsuario(usuario)"
               class="ti-package btnTablas"></i></td>
           </tr>
           </tbody>
         </table>
       </div>
+    </div>
+  </div>
+</app-card>
+
+<!--Stock por usuairo-->
+<app-card title="Stock del usuario: {{objUsuario.nombre_usuario}} {{objUsuario.apellido_usuario}}">
+  <div class="row">
+    <div class="col-md-6">
+      <h4 class="sub-title">Producto</h4>
+    </div>
+    <div class="col-md-6">
+      <h4 class="sub-title">Cantidad actual</h4>
+    </div>
+
+
+  </div>
+  <div>
+    <div *ngFor="let almacen of listStockUsuario">
+      <div class="row"  style="padding-top: 5px">
+        <div class="col-md-6">
+          <label>{{almacen.descripcion_alamacen_calificacion}}</label>
+        </div>
+        <div class="col-md-6">
+          <input class="form-control" placeholder="Cantidad" value="{{almacen.cantidad_stock}}"
+                 disabled/>
+        </div>
+      </div>
+      <hr style="z-index: 1000"/>
     </div>
   </div>
 </app-card>
@@ -90,3 +121,4 @@
     </div>
   </div>
 </app-modal-basic>
+

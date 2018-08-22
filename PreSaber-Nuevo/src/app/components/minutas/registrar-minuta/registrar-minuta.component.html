@@ -17,6 +17,9 @@
                   </div>
                 </sb-item-head>
                 <sb-item-body class="accordion-content">
+                  <input class="form-control"  placeholder="Descripcion otra actividad"
+                         [ngStyle]="{'border': objRegistroMinutas.descripcion_minuta== '' ? 'red solid 1px' : '#577928 solid 1px'}"
+                         #otraActividad="ngModel" [(ngModel)]="objRegistroMinutas.descripcion_minuta">
                   <button  (click)="iniciarTarea()" style="width: 100%; margin-top: 5px" [disabled]="objAcciones.id_acciones_minutas == ''
                   || objRegistroMinutas.estado_minuta == 'SINTERMINAR'
                   || objRegistroMinutas.estado_minuta == 'TERMINADOF'

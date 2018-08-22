@@ -67,7 +67,7 @@ export class RegistrarMinutaComponent implements OnInit {
       '', '', '', '');
     this.objPedido = new Pedido('', '', '', '');
     this.objRegistroMinutas = new Registro_minutas('', '', '', '',
-      '', '', '', '', '', '', '', '');
+      '', '', '', '', '', '', '', '','');
     this.objPedidoMinutas = new Pedido_minutas('', '', '', '');
     this.objCategoriaNoConformes = new Categoria_no_conformes('000', '', '', '');
     this.objNoConformes = new No_conformes('000', '', '', '', '');
@@ -351,7 +351,7 @@ export class RegistrarMinutaComponent implements OnInit {
 
   limpiarCampos() {
     this.objRegistroMinutas = new Registro_minutas('', '', '', '',
-      '', '', '', '', '', '', '', '');
+      '', '', '', '', '', '', '', '','');
   }
 
   limpiarCamposTodos() {
@@ -362,7 +362,7 @@ export class RegistrarMinutaComponent implements OnInit {
       '', '', '', '');
     this.objPedido = new Pedido('', '', '', '');
     this.objRegistroMinutas = new Registro_minutas('', '', '', '',
-      '', '', '', '', '', '', '', '');
+      '', '', '', '', '', '', '', '','');
     this.objPedidoMinutas = new Pedido_minutas('', '', '', '');
     this.objCategoriaNoConformes = new Categoria_no_conformes('000', '', '', '');
     this.objNoConformes = new No_conformes('000', '', '', '', '');
