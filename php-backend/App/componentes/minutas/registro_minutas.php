@@ -15,8 +15,10 @@ $app->post('/minutas/unix/listarMinutasUsuario', function () use ($app) {
                     pm.descripcion_pedido_minutas,
                     am.descripcion_acciones_minutas,
                     am.id_acciones_minutas,
+                    am.seleccion_pedido_accion,
                     rgm.id_registro_minutas_fk,
                     rgm.id_pedido_minutas_fk,
+                    rgm.descripcion_minuta,
                     pm.codigo_pedido_minutas from minutas.registro_minutas rgm 
                     left join minutas.pedidos_minutas pm on rgm.id_pedido_minutas_fk=pm.id_pedido_minutas
                     join minutas.acciones_minutas am on am.id_acciones_minutas=rgm.id_acciones_minutas_fk
@@ -215,8 +217,8 @@ $app->post('/minutas/unix/crearRegistroMinutasSimple', function () use ($app) {
                 $estado_minuta = 'SINTERMINAR';
                 $id_usuario_minutas_fk = $usuarioToken->sub;
                 $id_acciones_minutas_fk = $app->request->post('idAccion', null);
-                $observacion = $app->request->post('descripcion',null);
-                if (trim($observacion) == ''){
+                $observacion = $app->request->post('descripcion', null);
+                if (trim($observacion) == '') {
                     $observacion = '-';
                 }
                 $horas_totales = '0';
@@ -269,7 +271,6 @@ $app->post('/minutas/unix/detenerMinuta', function () use ($app) {
                 $parametros = json_decode($json);
                 $usuarioToken = $helper->authCheck($token, true);
                 $id_registro_minutas = (isset($parametros->id_registro_minutas)) ? $parametros->id_registro_minutas : null;
-
                 $sql = "select *  from minutas.registro_minutas rm where rm.id_registro_minutas = '$id_registro_minutas';";
                 $r = $conexion->consultaComplejaNorAso($sql);
                 if ($r != 0) {
@@ -294,6 +295,8 @@ $app->post('/minutas/unix/detenerMinuta', function () use ($app) {
                 VALUES ('$fechActual', '$descripcionActividad',  '$usuarioToken->sub');";
                     $conexion = new conexPGSeguridad();
                     $conexion->consultaSimple($sql);
+
+
                     $data = [
                         'code' => 'LTE-001'
                     ];
@@ -329,33 +332,45 @@ $app->post('/minutas/unix/terminarMinuta', function () use ($app) {
                 $parametros = json_decode($json);
                 $usuarioToken = $helper->authCheck($token, true);
                 $id_registro_minutas = (isset($parametros->id_registro_minutas)) ? $parametros->id_registro_minutas : null;
-
-                $sql = "select *  from minutas.registro_minutas rm where rm.id_registro_minutas = '$id_registro_minutas';";
-                $r = $conexion->consultaComplejaNorAso($sql);
-                if ($r != 0) {
-                    $fechActual = date('Y-m-d H:i');
-                    $fechaInicial = new DateTime($r['fecha_hora_inicio_minuta']);
-                    $fechaFianl = new DateTime($fechActual);
-                    $diff = $fechaFianl->diff($fechaInicial);
-                    $jsonTiempo = json_encode($diff);
-                    $horas_totales = get_format($diff);
-                    $fecha_hora_fin_minuta = $fechActual;
-                    $estado_minuta = 'TERMINADOF';
-                    $sql = "UPDATE minutas.registro_minutas
+                $idPedido = (isset($parametros->id_pedido_minutas_fk)) ? $parametros->id_pedido_minutas_fk : null;
+                $validacionStockUsuario = '';
+                if ($idPedido != '' && $idPedido != null) {
+                    $validacionStockUsuario = calcularStockUsuario($idPedido);
+                }
+                if ($validacionStockUsuario == '') {
+                    $sql = "select *  from minutas.registro_minutas rm where rm.id_registro_minutas = '$id_registro_minutas';";
+                    $r = $conexion->consultaComplejaNorAso($sql);
+                    if ($r != 0) {
+                        $fechActual = date('Y-m-d H:i');
+                        $fechaInicial = new DateTime($r['fecha_hora_inicio_minuta']);
+                        $fechaFianl = new DateTime($fechActual);
+                        $diff = $fechaFianl->diff($fechaInicial);
+                        $jsonTiempo = json_encode($diff);
+                        $horas_totales = get_format($diff);
+                        $fecha_hora_fin_minuta = $fechActual;
+                        $estado_minuta = 'TERMINADOF';
+                        $sql = "UPDATE minutas.registro_minutas
                             SET   fecha_hora_fin_minuta='$fecha_hora_fin_minuta', horas_totales='$horas_totales', estado_minuta='$estado_minuta', json_tiempo='$jsonTiempo'
                             WHERE id_registro_minutas='$id_registro_minutas';";
-                    $conexion->consultaSimple($sql);
-                    agregarTiempoMuertoTemporal($usuarioToken->sub);
-                    $descripcionActividad = 'Se termino la minuta con codigo: ' . $id_registro_minutas;
-                    $sql = "INSERT INTO configuracion.log_lte(
+                        $conexion->consultaSimple($sql);
+                        agregarTiempoMuertoTemporal($usuarioToken->sub);
+                        $descripcionActividad = 'Se termino la minuta con codigo: ' . $id_registro_minutas;
+                        $sql = "INSERT INTO configuracion.log_lte(
                  fecha_creacion_log, descripcion_log, id_usuario_fk_log)
                 VALUES ('$fechActual', '$descripcionActividad',  '$usuarioToken->sub');";
-                    $conexion->consultaSimple($sql);
-                    $data = [
-                        'code' => 'LTE-001'
-                    ];
-                } else {
+                        $conexion->consultaSimple($sql);
+                        $data = [
+                            'code' => 'LTE-001'
+                        ];
+                    } else {
 
+                    }
+                } else {
+                    $data = [
+                        'code' => 'LTE-000',
+                        'status' => 'error',
+                        'msg' => $validacionStockUsuario
+                    ];
                 }
             } else {
                 $data = [
@@ -1616,6 +1631,130 @@ $app->post('/minutas/listarUsuariosConMinutas', function () use ($app) {
     echo $helper->checkCode($data);
 });
 
+$app->post('/prueba', function () use ($app) {
+    $R = calcularStockUsuario('97');
+    echo $R;
+});
+function calcularStockUsuario($idPedido)
+{
+    $conexionPgSegurida = new conexPGSeguridad();
+    $conexionJseluis = new conexMsql();
+    $conexionCalificacion = new conexPG();
+    $sql = "select pm.* from minutas.pedidos_minutas pm where pm.id_pedido_minutas ='$idPedido';";
+    $r = $conexionPgSegurida->consultaComplejaNorAso($sql);
+    $codigo_Pedido = $r['codigo_pedido_minutas'];
+    $sql = "select od.* from orders orde inner join order_details od on orde.id=od.id_order where orde.code = '$codigo_Pedido'";
+    $rDetalleOrder = $conexionJseluis->consultaComplejaAso($sql);
+    $validacionProcesado = false;
+    $coma = ',';
+    $cadenCaliidn = '';
+    for ($i = 0; $i < count($rDetalleOrder); $i++) {
+        if ($rDetalleOrder[$i]['state'] == 'ACTIVO') {
+            $validacionProcesado = true;
+        }
+        if ($cadenCaliidn != '') {
+            $cadenCaliidn .= $coma;
+        }
+        $cadenCaliidn .= $rDetalleOrder[$i]['id_caliidn'];
+    }
+
+    if ($validacionProcesado == false) {
+        if ($rDetalleOrder != 0) {
+            $idPedido = $rDetalleOrder[0]['id_order'];
+            $sql = "select us.* from users us inner join users_per_order upo on us.id=upo.id_user 
+                        where upo.id_order ='$idPedido' and upo.id_process_state ='9';";
+            $usuarioPedido = $conexionJseluis->consultaComplejaNorAso($sql);
+            if ($usuarioPedido != 0) {
+                $documentoUsuario = $usuarioPedido['doc_number'];
+                $sql = "select * from jl_caliidn as jl where jl.id IN ($cadenCaliidn)";
+                $r = $conexionJseluis->consultaComplejaAso($sql);
+                $cadenCaliidn = '';
+                for ($i = 0; $i < count($r); $i++) {
+                    if ($cadenCaliidn != '') {
+                        $cadenCaliidn .= $coma;
+                    }
+                    $cadenCaliidn .= "'" . $r[$i]['caliidn'] . "'";
+                }
+                $sql = "select * from inventario inv where inv.caliidn in ($cadenCaliidn) order by inv.id ASC;";
+                $r = $conexionCalificacion->consultaComplejaAso($sql);
+                if ($r != 0) {
+                    $sql = "select * from seguridad.usuario usu where usu.documento_usuario = '$documentoUsuario';";
+                    $r2 = $conexionPgSegurida->consultaComplejaNorAso($sql);
+                    $idUsuario = $r2['id_usuario'];
+                    for ($n = 0; $n < count($r); $n++) {
+                        $idProducto = $r[$n]['id_product'];
+                        $sql = "select * from minutas.stock_usuario_almacen_calificacion su 
+                        inner join minutas.almacen_calificacion ac on su.fk_id_almacen_calificacion = ac.id_almacen_calificacion 
+                        where su.fk_id_almacen_calificacion = '$idProducto' and su.fk_stock_usuario_almacen_usuario_id = '$idUsuario' ";
+                        $c = $conexionPgSegurida->consultaComplejaNorAso($sql);
+                        if ($c == 0) {
+                            return 'Lo sentimos, El usuario no cuenta con el producto con id: ' . $idProducto;
+                        }
+                    }
+                    if ($r2 != 0) {
+                        $sql = "select ac.* from minutas.almacen_calificacion ac order by ac.id_almacen_calificacion asc";
+                        $r2 = $conexionPgSegurida->consultaComplejaAso($sql);
+                        for ($i = 0; $i < count($r2); $i++) {
+                            $r2[$i]['total_cantidad_almacen_calificacion'] = 0;
+                        }
+                        for ($y = 0; $y < count($r); $y++) {
+                            $idProducto = $r[$y]['id_product'];
+                            $cantidad = $r[$y]['cantidad'];
+                            for ($i = 0; $i < count($r2); $i++) {
+                                if ($idProducto == $r2[$i]['id_almacen_calificacion']) {
+                                    $r2[$i]['total_cantidad_almacen_calificacion'] += $cantidad;
+                                }
+                            }
+                        }
+                        $sql = "select * from minutas.stock_usuario_almacen_calificacion su where su.fk_stock_usuario_almacen_usuario_id = '$idUsuario' ";
+                        $c = $conexionPgSegurida->consultaComplejaAso($sql);
+                        for ($i = 0; $i < count($r2); $i++) {
+                            $idProducto = $r2[$i]['id_almacen_calificacion'];
+                            $cantidad = $r2[$i]['total_cantidad_almacen_calificacion'];
+                            for ($n = 0; $n < count($c); $n++) {
+                                if ($c[$n]['fk_id_almacen_calificacion'] == $idProducto) {
+                                    $cantidadActual = $c[$n]['cantidad_stock'];
+                                    $c[$n]['cantidad_stock'] = $c[$n]['cantidad_stock'] - $cantidad;
+                                    if ($c[$n]['cantidad_stock'] < 0) {
+                                        return 'Lo sentimos, no tienen la cantidad suficiente del producto con id: ' .
+                                            $c[$n]['fk_id_almacen_calificacion'].', cantidad requeridad: '.$cantidad.', cantidad actual: '.$cantidadActual;
+                                    }
+                                }
+                            }
+                        }
+                        for ($i = 0; $i < count($c); $i++) {
+                            $idStockUsuario = $c[$i]['id_stock_almacen_calificacion'];
+                            $cantidad = $c[$i]['cantidad_stock'];
+                            $sql = "UPDATE minutas.stock_usuario_almacen_calificacion
+                                    SET   cantidad_stock='$cantidad'
+                                    WHERE id_stock_almacen_calificacion='$idStockUsuario';";
+                            $conexionPgSegurida->consultaSimple($sql);
+                        }
+                        $fecha_creacion = date('Y-m-d H:i');
+                        $json = json_encode($r2);
+                        $sql = "INSERT INTO minutas.registro_gasto_usuario(
+                                cantidad, fecha_creacion_registro_gasto, codigo_pedido, id_usuario_registro_gasto_fk)
+                                VALUES ('$json', '$fecha_creacion', '$codigo_Pedido', '$idUsuario');";
+                        $conexionPgSegurida->consultaSimple($sql);
+                        return '';
+                    } else {
+                        return 'Lo sentimos, no pudimos emparejar el usuario de LTEsoluciones con joseluis, comunicarse con el departamento de sistemas';
+                    }
+
+                } else {
+                    return 'Lo sentimos no se a realizado ni una impresion de este pedido, no podemos terminar la minuta';
+                }
+            } else {
+                return 'No se encontro el usuario para asociar el stock';
+            }
+
+        }
+    } else {
+        return 'Lo sentimos, no se encontro el paquete en los detalles';
+    }
+
+}
+
 function metodoTiempoMuertoTemporal($id_usuario)
 {
     $conexion = new conexPGSeguridad();
@@ -1667,12 +1806,13 @@ function metodoTiempoMuertoTemporal($id_usuario)
     }
 }
 
-function agregarTiempoMuertoTemporal($idusuario){
+function agregarTiempoMuertoTemporal($idusuario)
+{
 
     eliminarTiempoMuertoTemporal($idusuario);
     $conexion = new conexPGSeguridad();
     $fechActual = date('Y-m-d');
-    $tiempoM  = date('Y-m-d H:i:s');
+    $tiempoM = date('Y-m-d H:i:s');
     $arregloTiempos = ['tiempo' => $tiempoM, 'fecha' => $fechActual];
     $jsonTMT = json_encode($arregloTiempos);
     $sql = "INSERT INTO minutas.tiempo_muerto_temporal(
