@@ -418,7 +418,7 @@ export class RegistrarMinutaComponent implements OnInit {
               // this.agregarTiempoMuertoLE();
               this._ElementService.pi_poAlertaSuccess(respuesta.msg, respuesta.code);
             } else {
-
+                this._ElementService.pi_poVentanaAlertaWarning(respuesta.code,respuesta.msg);
             }
           }, error2 => {
 

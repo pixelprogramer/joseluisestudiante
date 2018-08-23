@@ -93,7 +93,8 @@
               <tr *ngFor="let mxu of listRegistroMinutasxUsuario" role="row" class="odd Tablas filaTabla test" (click)="seleccionarMinuta(mxu)">
                 <td>{{mxu.registro.id_registro_minutas}}</td>
                 <td>{{mxu.registro.codigo_pedido_minutas}}</td>
-                <td>{{mxu.registro.descripcion_pedido_minutas}}</td>
+                <td *ngIf="mxu.registro.seleccion_pedido_accion =='1'">{{mxu.registro.descripcion_pedido_minutas}}</td>
+                <td *ngIf="mxu.registro.seleccion_pedido_accion !='1'">{{mxu.registro.descripcion_minuta}}</td>
                 <td  [ngStyle]="{'background': mxu.registro.estado_minuta == 'DETENIDA' ? 'rgb(244, 208, 63)' :
                  mxu.registro.estado_minuta == 'SINTERMINAR' ? 'rgb(237, 118, 105)' : 'rgb(144, 230, 181)'}" >{{mxu.registro.estado_minuta}}</td>
                 <td>{{mxu.registro.fecha_hora_inicio_minuta}}</td>

@@ -20,6 +20,9 @@
           <thead>
           <tr role="row" style="height: 0px;">
             <th style="width: 144.45px;">
+              Codigo
+            </th>
+            <th style="width: 144.45px;">
               Descripcion
             </th>
             <th style="width: 70px;">
@@ -34,6 +37,7 @@
           <tbody>
           <tr *ngFor="let registros of listAlamacen" role="row" class="odd Tablas filaTabla test"
               (click)="[cargarCantidad(registros),modalNuevasAntidades.show()]">
+            <td>{{registros.id_almacen_calificacion}}</td>
             <td>{{registros.descripcion_alamacen_calificacion}}</td>
             <td>{{registros.total_cantidad_almacen_calificacion}}</td>
             <td><i class="ti-package"></i></td>

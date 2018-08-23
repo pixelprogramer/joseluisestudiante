@@ -56,10 +56,13 @@
 <!--Stock por usuairo-->
 <app-card title="Stock del usuario: {{objUsuario.nombre_usuario}} {{objUsuario.apellido_usuario}}">
   <div class="row">
+    <div class="col-md-2">
+      <h4 class="sub-title">Codigo</h4>
+    </div>
     <div class="col-md-6">
       <h4 class="sub-title">Producto</h4>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-4">
       <h4 class="sub-title">Cantidad actual</h4>
     </div>
 
@@ -68,10 +71,13 @@
   <div>
     <div *ngFor="let almacen of listStockUsuario">
       <div class="row"  style="padding-top: 5px">
+        <div class="col-md-2">
+          <label>{{almacen.id_almacen_calificacion}}</label>
+        </div>
         <div class="col-md-6">
           <label>{{almacen.descripcion_alamacen_calificacion}}</label>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
           <input class="form-control" placeholder="Cantidad" value="{{almacen.cantidad_stock}}"
                  disabled/>
         </div>
@@ -87,10 +93,13 @@
   </div>
   <div class="app-modal-body">
     <div class="row">
+      <div class="col-md-1">
+        <h4 class="sub-title">Codigo</h4>
+      </div>
       <div class="col-md-3">
         <h4 class="sub-title">Producto</h4>
       </div>
-      <div class="col-md-3">
+      <div class="col-md-2">
         <h4 class="sub-title">Cantidad actual</h4>
       </div>
       <div class="col-md-3">
@@ -101,10 +110,13 @@
     <div style="overflow-y: scroll; height: 300px">
       <div *ngFor="let almacen of listAlamacen">
         <div class="row"  style="padding-top: 5px">
+          <div class="col-md-1">
+            <label>{{almacen.id_almacen_calificacion}}</label>
+          </div>
           <div class="col-md-3">
             <label>{{almacen.descripcion_alamacen_calificacion}}</label>
           </div>
-          <div class="col-md-3">
+          <div class="col-md-2">
             <input class="form-control" placeholder="Cantidad" value="{{almacen.total_cantidad_almacen_calificacion}}"
                    disabled/>
           </div>
