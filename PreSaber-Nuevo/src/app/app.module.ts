@@ -8,6 +8,7 @@ import {routing,appRoutingProviders} from "./app.rounting";
 import {FormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 
+
 import { AppComponent } from './app.component';
 import {CKEditorModule} from "ng2-ckeditor";
 import {SafeHtmlPipe} from "./services/tanfromarHtml";
@@ -45,8 +46,7 @@ import { MisPedidosComponent } from './components/distribuidor/mis-pedidos/mis-p
 import { IndicadoresCalificacionComponent } from './components/calificacion/indicadores-calificacion/indicadores-calificacion.component';
 import { AlmacenCalificacionComponent } from './components/calificacion/almacen-calificacion/almacen-calificacion.component';
 import { StockUsuarioComponent } from './components/calificacion/stock-usuario/stock-usuario.component';
-
-
+import {ValidarPaginaComponent} from "./components/validar-pagina/validar-pagina.component";
 
 
 @NgModule({
@@ -86,6 +86,7 @@ import { StockUsuarioComponent } from './components/calificacion/stock-usuario/s
     MisPedidosComponent,
     IndicadoresCalificacionComponent,
     AlmacenCalificacionComponent,
+    ValidarPaginaComponent,
     StockUsuarioComponent
   ],
   imports: [

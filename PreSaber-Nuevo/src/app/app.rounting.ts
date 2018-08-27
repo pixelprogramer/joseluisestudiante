@@ -38,11 +38,12 @@ import {IndicadoresCalificacionComponent} from "./components/calificacion/indica
 import {AlmacenCalificacionComponent} from "./components/calificacion/almacen-calificacion/almacen-calificacion.component";
 import {Stock_usuario_almacen_calificacion} from "./models/almacen/stock_usuario_almacen_calificacion";
 import {StockUsuarioComponent} from "./components/calificacion/stock-usuario/stock-usuario.component";
+import {ValidarPaginaComponent} from "./components/validar-pagina/validar-pagina.component";
 
 
 const appRoutes: Routes = [
 
-  {path: '', component: LoginComponent},
+  {path: '', component: ValidarPaginaComponent, pathMatch: 'full'},
   {path: '⚡/crearGrupos', component: CrearGruposComponent},
   {path: '📚/traslado/👪', component: TrasladoUsuarioComponent},
   {path: '⚡/unificar/👪', component: UnificacionUsuariosComponent},
@@ -78,7 +79,7 @@ const appRoutes: Routes = [
   {path: 'distribuidor/RealizarNuevoPedido', component: NuevoPedidoDistribuidorComponent},
   {path: 'distribuidor/misPedidos', component: MisPedidosComponent},
   {path: 'login', component: LoginComponent},
-  {path: '**', component: TrasladoUsuarioComponent}
+  {path: '**', component: ValidarPaginaComponent}
 
 ];
 
