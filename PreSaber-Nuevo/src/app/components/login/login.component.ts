@@ -3,7 +3,7 @@ import {LoginService} from "../../services/login.service";
 import {Usuario} from "../../models/seguridad/usuario";
 import {ElementsService} from "../../services/elements.service";
 import {Router} from "@angular/router";
-import {appRoutingProviders} from "../../app.rounting";
+//import {appRoutingProviders} from "../../app.rounting";
 
 @Component({
   selector: 'app-login',
@@ -46,9 +46,12 @@ export class LoginComponent implements OnInit {
                 }
                 if (validacion == 1)
                 {
-                 this._Router.navigate([respuesta1.data.permisos[posisicon].ruta_menu]);
+                  //this._Router.navigate(['']);
+                  // this._Router.navigate(['/ðŸ‘‘/ðŸ’»/ðŸ ']);
+                  window.location.href = '/joseluisestudiante/';
+                  // this._Router.navigate([respuesta1.data.permisos[posisicon].ruta_menu]);
                  // this._Router.navigate(['/👑/💻/🏠']);
-                 window.location.href = respuesta1.data.permisos[posisicon].ruta_menu;
+                 //window.location.href = respuesta1.data.permisos[posisicon].ruta_menu;
                 }else
                 {
                   this._ElementService.pi_poVentanaAlertaWarning('LTE-001','Lo sentimos, por favor comunicarse con el ' +
