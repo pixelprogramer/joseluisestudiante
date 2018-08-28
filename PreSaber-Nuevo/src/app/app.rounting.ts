@@ -2,7 +2,6 @@ import {ModuleWithProviders} from "@angular/core";
 import {Routes, RouterModule} from "@angular/router";
 
 
-import {AppComponent} from './app.component';
 import {CrearGruposComponent} from "./components/crear-grupos/crear-grupos.component";
 import {TrasladoUsuarioComponent} from './components/traslado-usuario/traslado-usuario.component';
 import {ComercialComponent} from "./components/pantallas/comercial/comercial.component";
