@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ElementsService} from "../../../services/elements.service";
-import {appRoutingProviders} from "../../../app.rounting";
+//import {appRoutingProviders} from "../../../app.rounting";
 
 @Component({
   selector: 'app-home-admin-sistemas',

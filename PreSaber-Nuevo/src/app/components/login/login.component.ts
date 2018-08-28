@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
                   //this._Router.navigate(['']);
                   // this._Router.navigate(['/ðŸ‘‘/ðŸ’»/ðŸ ']);
                   window.location.href = '/joseluisestudiante/';
-                  // this._Router.navigate([respuesta1.data.permisos[posisicon].ruta_menu]);
+                   //this._Router.navigate([respuesta1.data.permisos[posisicon].ruta_menu]);
                  // this._Router.navigate(['/👑/💻/🏠']);
                  //window.location.href = respuesta1.data.permisos[posisicon].ruta_menu;
                 }else
